@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
     <div class="min-h-screen bg-black text-white">
         <header class="p-6">
             <h1 class="text-2xl font-bold">Webb Labs</h1>
@@ -7,15 +7,6 @@
             <div class="flex flex-col items-center text-center">
                 <div class="relative w-full mb-8">
                     <img src="{{ asset('images/webb-labs-banner.png') }}"
-                         alt="Webb Labs - Bridge to Infinite Possibilities"
-                         class="w-full h-auto object-cover">
-                         <img src="{{ asset('images/webb-labs-banner-2.png') }}"
-                         alt="Webb Labs - Bridge to Infinite Possibilities"
-                         class="w-full h-auto object-cover">
-                    <img src="{{ asset('images/webb-labs-banner-3.png') }}"
-                         alt="Webb Labs - Bridge to Infinite Possibilities"
-                         class="w-full h-auto object-cover">
-                    <img src="{{ asset('images/webb-labs-banner-1.png') }}"
                          alt="Webb Labs - Bridge to Infinite Possibilities"
                          class="w-full h-auto object-cover">
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -54,4 +45,4 @@
             </div>
         </section>
     </div>
-</x-app-layout>
+</x-guest-layout>
