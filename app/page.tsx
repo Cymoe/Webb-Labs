@@ -1,8 +1,28 @@
 'use client'
 
+import { SignInButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Loading from "./components/loading";
 
 export default function Home() {
+  const { isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      setIsRedirecting(true);
+      router.push('/dashboard');
+    }
+  }, [isSignedIn, isLoaded, router]);
+
+  if (!isLoaded || isRedirecting) {
+    return <Loading />;
+  }
+
   return (
     <div className="min-h-screen bg-zinc-900 text-gray-100">      
       <main className="max-w-xl mx-auto px-4 py-16">
@@ -21,12 +41,12 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20" />
                 <div className="absolute inset-0 bg-zinc-900/40" />
                 <div className="absolute inset-0 border border-zinc-800 rounded-lg" />
-                <div className="absolute bottom-3 left-3 right-3 flex flex-col gap-1.5">
-                </div>
               </div>
-              <button className="text-indigo-400 hover:text-indigo-300 text-sm font-bold py-1 px-3 hover:border-indigo-700/50 transition-colors">
-                Login
-              </button>
+              <SignInButton mode="modal">
+                <button className="text-indigo-400 hover:text-indigo-300 text-sm font-bold py-1 px-3 hover:border-indigo-700/50 transition-colors">
+                  Login
+                </button>
+              </SignInButton>
             </div>
 
             <h1 className="text-2xl font-bold mb-2 text-white">Webb Labs</h1>
@@ -38,12 +58,12 @@ export default function Home() {
               </p>
             </div>
 
-            <a 
-              href="/signup"
+            <Link 
+              href="/sign-up"
               className="bg-indigo-600/20 hover:bg-indigo-600/30 text-white font-bold text-sm py-2 px-4 rounded-md border border-indigo-500/30 transition-colors"
             >
               Sign up for early access →
-            </a>
+            </Link>
           </div>
         </div>
 

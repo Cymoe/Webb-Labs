@@ -1,14 +1,17 @@
 'use client'
 
-export default function SignUp() {
+import Link from 'next/link';
+import { SignUp } from "@clerk/nextjs";
+
+export default function SignUpPage() {
   return (
     <div className="min-h-screen bg-zinc-900 text-gray-100">      
       <main className="max-w-xl mx-auto px-4 py-16">
         <div className="mb-8">
-          <a href="/" className="text-sm text-gray-400 hover:text-gray-300 flex items-center gap-2">
+          <Link href="/" className="text-sm text-gray-400 hover:text-gray-300 flex items-center gap-2">
             <span>←</span>
             <span>Back to home</span>
-          </a>
+          </Link>
         </div>
 
         <div className="mb-12">
@@ -16,60 +19,25 @@ export default function SignUp() {
           <p className="text-lg text-gray-400">Join the future of AI automation with Webb Labs.</p>
         </div>
 
-        <div className="bg-zinc-800/50 rounded-lg border border-zinc-700/50 p-6">
-          <form className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-md py-2 px-3 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="John Smith"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-                Work Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-md py-2 px-3 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="you@company.com"
-              />
-            </div>
-            <div>
-              <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-1">
-                Company Name
-              </label>
-              <input
-                type="text"
-                id="company"
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-md py-2 px-3 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Your Company"
-              />
-            </div>
-            <div>
-              <label htmlFor="useCase" className="block text-sm font-medium text-gray-300 mb-1">
-                Use Case
-              </label>
-              <textarea
-                id="useCase"
-                rows={3}
-                className="w-full bg-zinc-900 border border-zinc-700 rounded-md py-2 px-3 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Tell us about your AI agent needs..."
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-sm font-medium py-2 px-4 rounded-md border border-indigo-500/30 transition-colors"
-            >
-              Request Access
-            </button>
-          </form>
-        </div>
+        <SignUp
+          signInUrl="/sign-in"
+          afterSignUpUrl="/dashboard"
+          appearance={{
+            elements: {
+              rootBox: "mx-auto",
+              card: "bg-zinc-800/50 border border-zinc-700/50",
+              headerTitle: "text-white",
+              headerSubtitle: "text-gray-400",
+              socialButtonsBlockButton: "bg-zinc-700/50 border border-zinc-600/50 text-white hover:bg-zinc-600/50",
+              formButtonPrimary: "bg-indigo-500 hover:bg-indigo-600",
+              footerAction: "text-gray-400",
+              formFieldLabel: "text-gray-300",
+              formFieldInput: "bg-zinc-700/50 border border-zinc-600/50 text-white",
+              dividerLine: "bg-zinc-700",
+              dividerText: "text-gray-400",
+            },
+          }}
+        />
       </main>
     </div>
   );

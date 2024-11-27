@@ -3,13 +3,20 @@
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useInitializeTestData } from "./actions";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 export default function Dashboard() {
-  const orders = useQuery(api.orders.list) || [];
-  const agents = useQuery(api.agents.getActive) || [];
-  const recentOrders = orders.slice(0, 3);
+  const { user } = useUser();
+  const ordersQuery = useQuery(api.orders.list);
+  const agentsQuery = useQuery(api.agents.getActive);
   const initTestData = useInitializeTestData();
+
+  // Memoize the derived values
+  const orders = useMemo(() => ordersQuery || [], [ordersQuery]);
+  const agents = useMemo(() => agentsQuery || [], [agentsQuery]);
+  const recentOrders = useMemo(() => orders.slice(0, 3), [orders]);
+  const totalRevenue = useMemo(() => orders.reduce((sum, order) => sum + order.amount, 0), [orders]);
 
   useEffect(() => {
     // Only populate if no orders exist
@@ -18,8 +25,6 @@ export default function Dashboard() {
     }
   }, [orders, initTestData]);
 
-  const totalRevenue = orders?.reduce((sum, order) => sum + order.amount, 0) || 0;
-
   return (
     <div className="min-h-screen bg-zinc-900 text-gray-100">
       {/* Top Navigation */}
@@ -27,9 +32,19 @@ export default function Dashboard() {
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <h1 className="text-lg font-bold text-white">Webb Labs</h1>
-            <button className="text-indigo-400 hover:text-indigo-300 text-sm font-bold py-1 px-3 hover:border-indigo-700/50 transition-colors">
-              Logout
-            </button>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-gray-400">{user?.emailAddresses[0]?.emailAddress}</span>
+              <UserButton 
+                appearance={{
+                  elements: {
+                    userButtonPopoverCard: "bg-zinc-800/50 border border-zinc-700/50",
+                    userButtonPopoverActionButton: "hover:bg-zinc-700/50 text-gray-200",
+                    userButtonPopoverActionButtonText: "text-gray-200",
+                    userButtonPopoverFooter: "hidden",
+                  }
+                }}
+              />
+            </div>
           </div>
         </div>
       </nav>
