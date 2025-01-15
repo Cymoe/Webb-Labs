@@ -1,0 +1,18 @@
+.founder-image {
+  max-width: 30px !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+img[alt*="founder" i],
+img[src*="founder" i] {
+  max-width: 30px !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  border-radius: 50%;
+  object-fit: cover;
+} 
