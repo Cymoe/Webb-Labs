@@ -86,13 +86,13 @@ function App() {
           <div className="mt-8 md:mt-12">
             <a 
               href="#contact"
-              className="group relative bg-gradient-to-r from-[#BF9B30] to-[#FFDC73] text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-full text-base md:text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(191,155,48,0.2),_0_0_40px_rgba(191,155,48,0.1)] flex items-center gap-2 mx-auto w-fit overflow-hidden isolate"
+              className="group relative bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 md:py-4 px-6 md:px-8 rounded-full text-base md:text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(79,70,229,0.3),_0_0_40px_rgba(79,70,229,0.15)] flex items-center gap-2 mx-auto w-fit overflow-hidden isolate"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#FFDC73]/0 via-[#FFDC73]/10 to-[#FFDC73]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute inset-0 ring-2 ring-[#BF9B30]/20 rounded-full group-hover:ring-[#FFDC73]/20 transition-all duration-500"></div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#FFDC73]/0 via-[#FFDC73]/5 to-[#FFDC73]/0"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/10 to-blue-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 ring-2 ring-indigo-500/20 rounded-full group-hover:ring-indigo-400/30 transition-all duration-500"></div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/0 via-blue-400/5 to-blue-400/0"></div>
               <span className="relative">REQUEST A BRAINSTORM</span>
-              <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative text-white/90" />
+              <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative text-blue-100" />
             </a>
           </div>
         </div>
