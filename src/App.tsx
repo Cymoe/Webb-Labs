@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, Brain, Rocket, Zap, Users, BarChart, Mail, MapPin, Phone, Twitter, Linkedin, Github } from 'lucide-react';
+import { ArrowUpRight, Brain, Rocket, Zap, Users, BarChart, Mail, Linkedin } from 'lucide-react';
 
 function App() {
   return (
@@ -27,8 +27,20 @@ function App() {
       <section className="min-h-screen flex flex-col justify-start pt-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/20 via-black to-black"></div>
         
+        {/* Content Container */}
+        <div className="container mx-auto px-6 text-center max-w-6xl relative mt-16">
+          <div className="space-y-8">
+            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 bg-clip-text text-transparent leading-tight pb-2">
+             Generative AI Solutions for Scalable Business Automation
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-400 leading-relaxed">
+              AI is no longer a future concept—it's reshaping how businesses operate today. Building Agentic AI systems and Generative AI solutions that drive efficiency, automation, and scale for modern businesses.
+            </p>
+          </div>
+        </div>
+
         {/* Video Container */}
-        <div className="w-full max-w-[1400px] mx-auto px-6 mt-8">
+        <div className="w-full max-w-[800px] mx-auto px-16 mt-16">
           <div className="aspect-video relative rounded-xl overflow-hidden border border-emerald-500/20 shadow-[0_0_50px_rgba(16,185,129,0.1)] bg-black/50">
             <iframe
               src="https://www.loom.com/embed/de69fc649db247f7b3fee72d7e8149d9"
@@ -37,21 +49,14 @@ function App() {
               className="absolute top-0 left-0 w-full h-full"
             ></iframe>
           </div>
-        </div>
-
-        {/* Content Container */}
-        <div className="container mx-auto px-6 text-center max-w-6xl relative mt-20">
-          <div className="space-y-8">
-            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-emerald-200 to-emerald-400 bg-clip-text text-transparent leading-tight pb-2">
-              We design what's next for the world's leading brands
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-400 leading-relaxed">
-              From AI to addictive apps, we design products for the future. We don't follow trends, we create them, and it drives billion-dollar businesses.
-            </p>
-            <button className="group bg-gradient-to-r from-emerald-400 to-emerald-600 text-black font-bold py-4 px-8 rounded-full text-lg transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center gap-2 mx-auto">
+          <div className="mt-12">
+            <a 
+              href="#contact"
+              className="group bg-gradient-to-r from-emerald-400 to-emerald-600 text-black font-bold py-4 px-8 rounded-full text-lg transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center gap-2 mx-auto w-fit"
+            >
               REQUEST A BRAINSTORM
               <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -131,6 +136,21 @@ function App() {
                 icon: <Users className="w-8 h-8" />,
                 title: 'AI Implementation Evaluation',
                 description: 'Assessment of existing AI systems, performance optimization, and test-driven implementation rewrites.'
+              },
+              {
+                icon: <Brain className="w-8 h-8" />,
+                title: 'AI Agents & Workflows',
+                description: 'Automating decision-making & operations'
+              },
+              {
+                icon: <Rocket className="w-8 h-8" />,
+                title: 'Custom Generative AI Apps',
+                description: 'AI-powered solutions tailored to your business needs'
+              },
+              {
+                icon: <Zap className="w-8 h-8" />,
+                title: 'LLM Integrations',
+                description: 'Implementing cutting-edge AI to enhance productivity'
               }
             ].map((service, index) => (
               <div 
@@ -194,11 +214,13 @@ function App() {
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black"></div>
         <div className="container mx-auto px-6 text-center relative">
           <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-white via-emerald-200 to-white bg-clip-text text-transparent">Let's design a future that keeps you ahead</h2>
-          <p className="text-xl text-emerald-400 mb-12 font-light tracking-wide">We work with one new client each month</p>
-          <button className="group bg-gradient-to-r from-emerald-400 to-emerald-600 text-black font-bold py-4 px-8 rounded-full text-lg transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center gap-2 mx-auto">
-            REQUEST A BRAINSTORM
-            <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-          </button>
+          <a 
+            href="mailto:myles@webblabs.io"
+            className="text-xl text-emerald-400 hover:text-emerald-300 transition-colors font-light tracking-wide inline-flex items-center gap-2"
+          >
+            <Mail className="w-5 h-5" />
+            myles@webblabs.io
+          </a>
         </div>
       </section>
 
@@ -211,14 +233,8 @@ function App() {
               <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Webb Labs</h3>
               <p className="text-gray-400 mb-6">Transforming businesses through innovative software solutions.</p>
               <div className="flex gap-4">
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
+                <a href="https://www.linkedin.com/in/myles-kameron/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-emerald-400 transition-colors">
                   <Linkedin className="w-5 h-5" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
-                  <Github className="w-5 h-5" />
                 </a>
               </div>
             </div>
@@ -239,7 +255,11 @@ function App() {
             <div>
               <h3 className="text-lg font-semibold mb-4 text-white">Services</h3>
               <ul className="space-y-3">
-                {['AI Solutions', 'Web Development', 'Mobile Apps', 'Cloud Services', 'Consulting'].map((service) => (
+                {[
+                  'AI Agents & Workflows',
+                  'Custom Generative AI Apps',
+                  'LLM Integrations'
+                ].map((service) => (
                   <li key={service}>
                     <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">{service}</a>
                   </li>
@@ -253,15 +273,7 @@ function App() {
               <ul className="space-y-3">
                 <li className="flex items-center gap-3 text-gray-400">
                   <Mail className="w-5 h-5 text-emerald-400" />
-                  <span>hello@webblabs.dev</span>
-                </li>
-                <li className="flex items-center gap-3 text-gray-400">
-                  <Phone className="w-5 h-5 text-emerald-400" />
-                  <span>+1 (555) 123-4567</span>
-                </li>
-                <li className="flex items-center gap-3 text-gray-400">
-                  <MapPin className="w-5 h-5 text-emerald-400" />
-                  <span>San Francisco, CA</span>
+                  <span>myles@webblabs.io</span>
                 </li>
               </ul>
             </div>
@@ -273,25 +285,6 @@ function App() {
           </div>
         </div>
       </footer>
-
-      {/* WhatsApp Float Button */}
-      <a
-        href="https://wa.me/15551234567" // Replace with your actual WhatsApp number
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 bg-emerald-500 p-4 rounded-full shadow-lg hover:bg-emerald-600 transition-all transform hover:scale-110 z-50 group"
-      >
-        <div className="absolute -top-12 right-0 bg-white text-black text-sm py-2 px-4 rounded-full opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-          Chat with us
-        </div>
-        <svg 
-          viewBox="0 0 24 24" 
-          className="w-6 h-6 text-white"
-          fill="currentColor"
-        >
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-      </a>
     </div>
   );
 }
