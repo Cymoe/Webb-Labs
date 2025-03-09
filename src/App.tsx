@@ -8,8 +8,8 @@ function App() {
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
       <nav className="fixed w-full z-[60] bg-black border-b border-amber-500/5">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center relative">
-          <div className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Webb Labs</div>
+        <div className="container mx-auto px-6 py-6 flex justify-between items-center relative">
+          <img src="/logo.png" alt="Webb Labs" className="h-20 md:h-32 w-auto hover:opacity-90 transition-opacity" />
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-8">
@@ -58,7 +58,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-start pt-20 relative overflow-hidden">
+      <section className="min-h-screen flex flex-col justify-start pt-32 md:pt-48 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 via-black to-black"></div>
         
         {/* Content Container */}
