@@ -64,8 +64,8 @@ function App() {
       {/* Clients Grid */}
       <section id="testimonials" className="py-20 bg-gradient-to-b from-black via-black/95 to-black">
         <div className="container mx-auto px-6">
-          <h2 className="text-5xl font-bold mb-4 text-center bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">Leaders at billion dollar brands</h2>
-          <p className="text-xl text-center text-emerald-400 mb-16 font-light tracking-wide">Join our exclusive waitlist</p>
+          <h2 className="text-5xl font-bold mb-4 text-center bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">Trusted by Industry Leaders</h2>
+          <p className="text-xl text-center text-emerald-400 mb-16 font-light tracking-wide">Limited availability for high-impact projects</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { name: 'LEGO', description: 'Global toy manufacturing leader' },
