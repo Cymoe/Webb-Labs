@@ -7,40 +7,38 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
-      <nav className="w-full bg-black border-b border-amber-500/5">
-        <div className="container mx-auto px-6 py-6 flex justify-between items-center relative">
-          <div className="absolute inset-0 overflow-hidden">
+      <nav className="w-full md:bg-black md:border-b md:border-amber-500/5">
+        <div className="container mx-auto md:px-6 md:py-6 flex justify-between items-center relative">
+          <div className="absolute inset-0 overflow-hidden hidden md:block">
             {/* Nebula effects */}
-            <div className="absolute inset-0">
-              <div className="absolute inset-[-100%] bg-gradient-to-tr from-blue-500/[0.03] via-transparent to-indigo-500/[0.03] blur-[100px] animate-nebula-pulse"></div>
-              <div className="absolute inset-[-100%] bg-gradient-to-bl from-indigo-400/[0.02] via-transparent to-blue-400/[0.02] blur-[120px] animate-nebula-pulse" style={{ animationDelay: '4s' }}></div>
-            </div>
-            {/* Larger glowing stars */}
-            {[...Array(5)].map((_, i) => (
-              <div
-                key={`glow-${i}`}
-                className="absolute w-[4px] h-[4px] bg-white rounded-full animate-twinkle hidden md:block"
-                style={{
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  boxShadow: '0 0 15px 2px rgba(255,255,255,0.15)'
-                }}
-              />
-            ))}
-            {/* Small twinkling stars */}
-            {[...Array(20)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-[2px] h-[2px] bg-white rounded-full animate-twinkle hidden md:block"
-                style={{
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                }}
-              />
-            ))}
+            <div className="absolute inset-[-100%] bg-gradient-to-tr from-blue-500/[0.03] via-transparent to-indigo-500/[0.03] blur-[100px] animate-nebula-pulse"></div>
+            <div className="absolute inset-[-100%] bg-gradient-to-bl from-indigo-400/[0.02] via-transparent to-blue-400/[0.02] blur-[120px] animate-nebula-pulse" style={{ animationDelay: '4s' }}></div>
           </div>
+          {/* Larger glowing stars */}
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={`glow-${i}`}
+              className="absolute w-[4px] h-[4px] bg-white rounded-full animate-twinkle hidden md:block"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                boxShadow: '0 0 15px 2px rgba(255,255,255,0.15)'
+              }}
+            />
+          ))}
+          {/* Small twinkling stars */}
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-[2px] h-[2px] bg-white rounded-full animate-twinkle hidden md:block"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+              }}
+            />
+          ))}
           <div className="hidden md:block relative">
             <img src="/logo.png" alt="Webb Labs" className="h-32 w-auto hover:opacity-90 transition-opacity relative z-10" />
           </div>
@@ -60,7 +58,7 @@ function App() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden fixed top-6 right-6 z-[110]">
+          <div className="fixed md:hidden top-6 right-6 z-[110]">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-300 hover:text-white transition-colors"
@@ -108,7 +106,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-start pt-16 md:pt-24 relative overflow-hidden">
+      <section className="min-h-screen flex flex-col justify-start md:pt-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 via-black to-black"></div>
         <div className="absolute inset-0 hidden md:block">
           {/* Nebula effects */}
