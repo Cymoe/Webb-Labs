@@ -7,9 +7,43 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
-      <nav className="fixed w-full z-[60] bg-black border-b border-amber-500/5">
+      <nav className="w-full bg-black border-b border-amber-500/5">
         <div className="container mx-auto px-6 py-6 flex justify-between items-center relative">
-          <img src="/logo.png" alt="Webb Labs" className="h-20 md:h-32 w-auto hover:opacity-90 transition-opacity" />
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Nebula effects */}
+            <div className="absolute inset-0">
+              <div className="absolute inset-[-100%] bg-gradient-to-tr from-blue-500/[0.03] via-transparent to-indigo-500/[0.03] blur-[100px] animate-nebula-pulse"></div>
+              <div className="absolute inset-[-100%] bg-gradient-to-bl from-indigo-400/[0.02] via-transparent to-blue-400/[0.02] blur-[120px] animate-nebula-pulse" style={{ animationDelay: '4s' }}></div>
+            </div>
+            {/* Larger glowing stars */}
+            {[...Array(5)].map((_, i) => (
+              <div
+                key={`glow-${i}`}
+                className="absolute w-[4px] h-[4px] bg-white rounded-full animate-twinkle hidden md:block"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  boxShadow: '0 0 15px 2px rgba(255,255,255,0.15)'
+                }}
+              />
+            ))}
+            {/* Small twinkling stars */}
+            {[...Array(20)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-[2px] h-[2px] bg-white rounded-full animate-twinkle hidden md:block"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 3}s`,
+                }}
+              />
+            ))}
+          </div>
+          <div className="hidden md:block relative">
+            <img src="/logo.png" alt="Webb Labs" className="h-32 w-auto hover:opacity-90 transition-opacity relative z-10" />
+          </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex gap-8">
@@ -36,17 +70,15 @@ function App() {
 
         {/* Mobile Menu */}
         <div 
-          className={`fixed top-0 inset-x-0 bottom-0 bg-black z-50 transform transition-transform duration-500 ease-in-out md:hidden ${
-            isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className={`${isMobileMenuOpen ? 'fixed' : 'hidden'} inset-0 bg-black z-[100] md:hidden`}
         >
           <button 
             onClick={() => setIsMobileMenuOpen(false)}
-            className="absolute top-8 right-6 text-gray-300 hover:text-white transition-colors"
+            className="absolute top-8 right-6 text-gray-300 hover:text-white transition-colors z-[110]"
           >
             <X className="w-8 h-8" />
           </button>
-          <div className="flex flex-col items-center min-h-screen">
+          <div className="flex flex-col items-center min-h-screen pt-24">
             <div className="pt-24 pb-16">
               <img 
                 src="/logo.png" 
@@ -63,7 +95,14 @@ function App() {
                 <a 
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMobileMenuOpen(false);
+                    const element = document.getElementById(item.toLowerCase());
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                   className="block text-3xl text-gray-300 hover:text-indigo-400 transition-colors text-center"
                 >
                   {item}
@@ -75,11 +114,78 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-start pt-32 md:pt-48 relative overflow-hidden">
+      <section className="min-h-screen flex flex-col justify-start pt-16 md:pt-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 via-black to-black"></div>
+        <div className="absolute inset-0 hidden md:block">
+          {/* Nebula effects */}
+          <div className="absolute inset-0">
+            <div className="absolute inset-[-100%] bg-gradient-to-tr from-blue-500/[0.03] via-transparent to-indigo-500/[0.03] blur-[100px] animate-nebula-pulse"></div>
+            <div className="absolute inset-[-100%] bg-gradient-to-bl from-indigo-400/[0.02] via-transparent to-blue-400/[0.02] blur-[120px] animate-nebula-pulse" style={{ animationDelay: '4s' }}></div>
+          </div>
+          {/* Larger glowing stars */}
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={`glow-${i}`}
+              className="absolute w-[4px] h-[4px] bg-white rounded-full animate-twinkle"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                boxShadow: '0 0 15px 2px rgba(255,255,255,0.15)'
+              }}
+            />
+          ))}
+          {/* Small twinkling stars */}
+          {[...Array(25)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-[2px] h-[2px] bg-white rounded-full animate-twinkle"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+              }}
+            />
+          ))}
+        </div>
         
         {/* Content Container */}
         <div className="container mx-auto px-6 text-center max-w-6xl relative mt-16">
+          <div className="md:hidden mb-16 relative">
+            <div className="absolute inset-[-100px] overflow-hidden">
+              {/* Nebula effects */}
+              <div className="absolute inset-0">
+                <div className="absolute inset-[-100%] bg-gradient-to-tr from-blue-500/[0.03] via-transparent to-indigo-500/[0.03] blur-[100px] animate-nebula-pulse"></div>
+                <div className="absolute inset-[-100%] bg-gradient-to-bl from-indigo-400/[0.02] via-transparent to-blue-400/[0.02] blur-[120px] animate-nebula-pulse" style={{ animationDelay: '4s' }}></div>
+              </div>
+              {/* Larger glowing stars */}
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={`glow-${i}`}
+                  className="absolute w-[4px] h-[4px] bg-white rounded-full animate-twinkle"
+                  style={{
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 3}s`,
+                    boxShadow: '0 0 15px 2px rgba(255,255,255,0.15)'
+                  }}
+                />
+              ))}
+              {/* Small twinkling stars */}
+              {[...Array(15)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-[2px] h-[2px] bg-white rounded-full animate-twinkle"
+                  style={{
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 3}s`,
+                  }}
+                />
+              ))}
+            </div>
+            <img src="/logo.png" alt="Webb Labs" className="h-32 w-auto mx-auto relative z-10" />
+          </div>
           <div className="space-y-8">
             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-blue-200 to-indigo-400 bg-clip-text text-transparent leading-tight pb-2">
              <span className="bg-gradient-to-r from-white via-blue-200 to-indigo-400 bg-clip-text">Generative AI</span> Solutions for Scalable Business Automation
@@ -119,7 +225,10 @@ function App() {
       <section id="testimonials" className="py-20 bg-gradient-to-b from-black via-black/95 to-black">
         <div className="container mx-auto px-6">
           <h2 className="text-5xl font-bold mb-4 text-center bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent">Trusted by Industry Leaders</h2>
-          <p className="text-xl text-center text-indigo-400 mb-16 font-light tracking-wide">Limited availability for high-impact projects</p>
+          <p className="text-xl text-center text-indigo-400 mb-16 font-light tracking-wide">
+            <span className="md:inline block">Limited availability for</span>{' '}
+            <span className="md:inline block">high-impact projects</span>
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { name: 'LEGO', description: 'Global toy manufacturing leader' },
