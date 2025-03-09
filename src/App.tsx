@@ -60,36 +60,30 @@ function App() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-gray-300 hover:text-white transition-colors relative"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="md:hidden fixed top-6 right-6 z-[110]">
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              {isMobileMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
         <div 
           className={`${isMobileMenuOpen ? 'fixed' : 'hidden'} inset-0 bg-black z-[100] md:hidden`}
         >
-          <button 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="absolute top-8 right-6 text-gray-300 hover:text-white transition-colors z-[110]"
-          >
-            <X className="w-8 h-8" />
-          </button>
-          <div className="flex flex-col items-center min-h-screen pt-24">
-            <div className="pt-24 pb-16">
-              <img 
-                src="/logo.png" 
-                alt="Webb Labs" 
-                className="h-32 w-auto cursor-pointer hover:opacity-90 transition-opacity" 
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-              />
-            </div>
+          <div className="flex flex-col items-center min-h-screen pt-32">
+            <img 
+              src="/logo.png" 
+              alt="Webb Labs" 
+              className="h-40 w-auto cursor-pointer hover:opacity-90 transition-opacity mb-16" 
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
             <div className="space-y-12">
               {['Services', 'About', 'Testimonials', 'Contact'].map((item) => (
                 <a 
@@ -184,7 +178,7 @@ function App() {
                 />
               ))}
             </div>
-            <img src="/logo.png" alt="Webb Labs" className="h-32 w-auto mx-auto relative z-10" />
+            <img src="/logo.png" alt="Webb Labs" className="h-40 w-auto mx-auto relative z-10" />
           </div>
           <div className="space-y-8">
             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-blue-200 to-indigo-400 bg-clip-text text-transparent leading-tight pb-2">
