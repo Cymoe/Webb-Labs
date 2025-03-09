@@ -36,11 +36,28 @@ function App() {
 
         {/* Mobile Menu */}
         <div 
-          className={`fixed top-[73px] inset-x-0 bottom-0 bg-black z-50 transform transition-transform duration-500 ease-in-out md:hidden ${
+          className={`fixed top-0 inset-x-0 bottom-0 bg-black z-50 transform transition-transform duration-500 ease-in-out md:hidden ${
             isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
-          <div className="flex flex-col items-center justify-center h-full">
+          <button 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="absolute top-8 right-6 text-gray-300 hover:text-white transition-colors"
+          >
+            <X className="w-8 h-8" />
+          </button>
+          <div className="flex flex-col items-center min-h-screen">
+            <div className="pt-24 pb-16">
+              <img 
+                src="/logo.png" 
+                alt="Webb Labs" 
+                className="h-32 w-auto cursor-pointer hover:opacity-90 transition-opacity" 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              />
+            </div>
             <div className="space-y-12">
               {['Services', 'About', 'Testimonials', 'Contact'].map((item) => (
                 <a 
