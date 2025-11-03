@@ -27,9 +27,9 @@ Target clients: $2M-$50M revenue, owner-operated, growth-focused businesses.
 
 ## Contact
 
-- **Email:** hello@webblabs.co
+- **Email:** myles@webblabs.io
 - **Phone:** +1 432 250 1127
-- **Location:** Midland, TX
+- **Location:** Midland, TX, Working Worldwide
 
 ## Development
 

@@ -1,10 +1,28 @@
 import './App.css'
+import { useState, useEffect, useRef } from 'react'
 import heroImage from './assets/hero.png'
 
 function App() {
+  const heroRef = useRef(null)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  useEffect(() => {
+    // Preload hero image with high priority
+    const img = new Image()
+    // Set loading and decoding hints for better performance
+    img.loading = 'eager'
+    img.decoding = 'async'
+    img.src = heroImage
+    img.onload = () => setImageLoaded(true)
+    
+    // If image is already cached, set loaded immediately
+    if (img.complete) {
+      setImageLoaded(true)
+    }
+  }, [])
+
   const scrollToNext = (e) => {
     e.preventDefault()
-    const sections = document.querySelectorAll('section')
     const currentSection = e.currentTarget.closest('section')
     const nextSection = currentSection?.nextElementSibling
     
@@ -16,7 +34,11 @@ function App() {
   return (
     <div className="app">
       {/* Hero Section */}
-      <section className="section hero" style={{ backgroundImage: `url(${heroImage})` }}>
+      <section 
+        ref={heroRef}
+        className={`section hero ${imageLoaded ? 'image-loaded' : ''}`}
+        style={{ backgroundImage: imageLoaded ? `url(${heroImage})` : 'none' }}
+      >
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">W E B B &nbsp;&nbsp; L A B S</h1>
@@ -29,7 +51,7 @@ function App() {
       </section>
 
       {/* Credibility Section */}
-      <section className="section">
+      <section className="section" aria-label="About Webb Labs">
         <div className="content-block">
           <p className="credibility-statement">
             Built for Service Companies. Trusted by Owners. Focused on Results.
@@ -53,14 +75,14 @@ function App() {
       </section>
 
       {/* Tagline Section */}
-      <section className="section tagline-section">
+      <section className="section tagline-section" aria-label="Tagline">
         <div className="tagline-content">
           <h2 className="tagline">PROVEN SYSTEMS. PREDICTABLE GROWTH.</h2>
         </div>
       </section>
 
       {/* Who We Work With Section */}
-      <section className="section">
+      <section className="section" aria-label="Who We Work With">
         <div className="content-block">
           <h2 className="section-title">WHO WE WORK WITH</h2>
           <div className="industries-grid">
@@ -88,26 +110,25 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section className="section contact-section">
+      <section className="section contact-section" aria-label="Contact Information">
         <h2 className="contact-title">CONTACT</h2>
-        <div className="contact-diagonal-container">
-          <div className="diagonal-split">
-            <div className="diagonal-bar"></div>
+        <div className="contact-container">
+          <div className="contact-split">
+            <div className="contact-divider"></div>
           </div>
-          
-          <div className="contact-content-diagonal">
-            <div className="contact-left">
+          <div className="contact-grid">
+            <div className="contact-block contact-left-block">
               <p>Myles Webb | Founder</p>
               <p>Based in Midland, TX, Working Worldwide</p>
             </div>
-            <div className="contact-right">
+            <div className="contact-block contact-right-block">
               <p>
-                <a href="mailto:hello@webblabs.co" className="contact-link-diagonal">
-                  hello@webblabs.co
+                <a href="mailto:myles@webblabs.io" className="contact-link">
+                  myles@webblabs.io
                 </a>
               </p>
               <p>
-                <a href="tel:+14322501127" className="contact-link-diagonal">
+                <a href="tel:+14322501127" className="contact-link">
                   +1 432 250 1127
                 </a>
               </p>

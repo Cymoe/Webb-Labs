@@ -24,6 +24,17 @@
   background-position: center;
   background-repeat: no-repeat;
   background-color: #000000; /* Fallback */
+  will-change: background-image;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  /* Optimize rendering performance */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero.image-loaded {
+  transition: opacity 0.3s ease-in;
 }
 
 .hero-overlay {
@@ -256,178 +267,63 @@
   z-index: 10;
 }
 
-.contact-diagonal-container {
+.contact-container {
   width: 100%;
-  max-width: 1200px;
-  height: 500px;
+  max-width: 900px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 400px;
 }
 
-.diagonal-split {
-  width: 100%;
-  height: 100%;
+.contact-split {
   position: absolute;
-  overflow: hidden;
-}
-
-.diagonal-bar {
-  position: absolute;
-  background-color: #FFFFFF;
-  width: 200%;
-  height: 8px;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) rotate(-35deg);
-  transform-origin: center;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 300px;
+  z-index: 1;
 }
 
-.contact-content-diagonal {
+.contact-divider {
+  width: 1px;
+  height: 100%;
+  background-color: #FFFFFF;
+  opacity: 0.3;
+}
+
+.contact-grid {
   position: relative;
   z-index: 2;
-  width: 100%;
-  height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 0;
-  padding: 0 80px;
-  transform: translateY(0);
+  gap: 80px;
+  width: 100%;
+  align-items: start;
 }
 
-.contact-left {
-  text-align: right;
-  padding-right: 2px;
-  transform: rotate(-35deg) translateY(0);
-  transform-origin: center;
-}
-
-.contact-right {
-  text-align: left;
-  padding-left: 2px;
-  transform: rotate(-35deg) translateY(0);
-  transform-origin: center;
-}
-
-.contact-left,
-.contact-right {
+.contact-block {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: clamp(11px, 1.2vw, 14px);
   letter-spacing: 0.05em;
   line-height: 1.8;
-  text-align: center;
 }
 
-.contact-left p,
-.contact-right p {
-  margin: 6px 0;
-}
-
-.contact-link-diagonal {
-  color: #FFFFFF;
-  text-decoration: none;
-  transition: opacity 0.3s;
-}
-
-.contact-link-diagonal:hover {
-  opacity: 0.7;
-}
-
-/* Old X pattern styles - keeping for reference */
-.contact-x-container {
-  width: 100%;
-  max-width: 1000px;
-  height: 600px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.x-shape {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.x-bar {
-  position: absolute;
-  background-color: #FFFFFF;
-  width: 140px;
-  height: 100%;
-  left: 50%;
-  top: 50%;
-  transform-origin: center;
-  display: flex;
-  align-items: center;
-}
-
-.x-bar-1 {
-  transform: translate(-50%, -50%) rotate(45deg);
-  justify-content: flex-start;
-  padding-left: 50px;
-}
-
-.x-bar-2 {
-  transform: translate(-50%, -50%) rotate(-45deg);
-  justify-content: flex-end;
-  padding-right: 50px;
-}
-
-.x-bar-1 .contact-info-x {
-  transform: rotate(-45deg);
-}
-
-.x-bar-2 .contact-info-x {
-  transform: rotate(45deg);
-}
-
-.contact-info-x {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: clamp(11px, 1.2vw, 14px);
-  color: #000000;
-  letter-spacing: 0.05em;
-  line-height: 1.8;
-}
-
-.contact-left-bar {
-  text-align: left;
-}
-
-.contact-right-bar {
+.contact-left-block {
   text-align: right;
+  padding-right: 60px;
 }
 
-.contact-info-x p {
+.contact-right-block {
+  text-align: left;
+  padding-left: 60px;
+}
+
+.contact-block p {
   margin: 8px 0;
-}
-
-.contact-link-x {
-  color: #000000;
-  text-decoration: none;
-  transition: opacity 0.3s;
-}
-
-.contact-link-x:hover {
-  opacity: 0.7;
-}
-
-
-/* Old contact styles - keeping for compatibility */
-.contact-info {
-  margin-top: 48px;
-}
-
-.contact-info p {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: clamp(14px, 1.8vw, 20px);
-  line-height: 2;
-  margin: 16px 0;
 }
 
 .contact-link {
@@ -469,50 +365,32 @@ html {
     letter-spacing: 0.1em;
   }
 
-  .contact-diagonal-container {
-    height: 400px;
+  .contact-container {
     max-width: 95%;
   }
 
-  .contact-content-diagonal {
-    gap: 10px;
-    padding: 0 40px;
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
   }
 
-  .contact-left {
-    font-size: clamp(12px, 1.3vw, 16px);
-    padding: 0 5px;
-    transform: rotate(-35deg) translateY(-25px);
+  .contact-left-block {
+    text-align: center;
+    padding-right: 0;
   }
 
-  .contact-right {
-    font-size: clamp(12px, 1.3vw, 16px);
-    padding: 0 5px;
-    transform: rotate(-35deg) translateY(25px);
+  .contact-right-block {
+    text-align: center;
+    padding-left: 0;
   }
 
-  .diagonal-bar {
-    height: 6px;
+  .contact-split {
+    display: none;
   }
 
   .contact-title {
     top: 60px;
     margin-bottom: 60px;
-  }
-
-  .contact-x-container {
-    height: 500px;
-    max-width: 90%;
-  }
-
-  .x-bar {
-    width: 100px;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-
-  .contact-info-x {
-    font-size: clamp(10px, 1.1vw, 13px);
   }
 }
 
@@ -544,56 +422,16 @@ html {
     margin-bottom: 40px;
   }
 
-  .contact-diagonal-container {
-    height: 350px;
+  .contact-container {
+    min-height: 300px;
   }
 
-  .contact-content-diagonal {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 0 24px;
+  .contact-grid {
+    gap: 40px;
   }
 
-  .contact-left {
-    text-align: center;
-    padding-right: 0;
-  }
-
-  .contact-right {
-    text-align: center;
-    padding-left: 0;
-  }
-
-  .contact-left {
-    font-size: clamp(11px, 1.2vw, 14px);
-    transform: rotate(-35deg) translateY(-20px);
-  }
-
-  .contact-right {
-    font-size: clamp(11px, 1.2vw, 14px);
-    transform: rotate(-35deg) translateY(20px);
-  }
-
-  .diagonal-bar {
-    height: 4px;
-  }
-
-  .contact-x-container {
-    height: 400px;
-  }
-
-  .x-bar {
-    width: 80px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .contact-info-x {
-    font-size: clamp(9px, 1vw, 12px);
-  }
-
-  .contact-info-x p {
-    margin: 6px 0;
+  .contact-block {
+    font-size: clamp(10px, 1.1vw, 13px);
   }
 }
 

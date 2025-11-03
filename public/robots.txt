@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://webblabs.io/sitemap.xml
+
