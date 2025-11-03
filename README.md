@@ -1,17 +1,53 @@
-# React + Vite
+# Webb Labs
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Premium single-page website for Webb Labs - a strategic partner for B2B service companies focused on operational excellence and growth.
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Webb Labs helps B2B service companies convert operational excellence into growth through:
 
-## React Compiler
+- Operator lead generation
+- AI-powered automation
+- Operations optimization
+- Strategic growth systems
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Built for Service Companies. Trusted by Owners. Focused on Results.**
 
-## Expanding the ESLint configuration
+## Services
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# Webb-Labs
+We work with established B2B service companies in:
+- Equipment Rental
+- Pressure Testing & Inspection
+- Wireline & Completion Services
+- Trucking & Logistics
+- Coiled Tubing
+- General Oilfield Services
+
+Target clients: $2M-$50M revenue, owner-operated, growth-focused businesses.
+
+## Contact
+
+- **Email:** hello@webblabs.co
+- **Phone:** +1 432 250 1127
+- **Location:** Midland, TX
+
+## Development
+
+Built with React + Vite for a fast, modern web experience.
+
+### Setup
+
+```bash
+npm install
+npm run dev
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+---
+
+**We move fast. We stay focused. We deliver.**
