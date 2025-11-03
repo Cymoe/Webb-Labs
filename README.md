@@ -25,12 +25,6 @@ We work with established B2B service companies in:
 
 Target clients: $2M-$50M revenue, owner-operated, growth-focused businesses.
 
-## Contact
-
-- **Email:** myles@webblabs.io
-- **Phone:** +1 432 250 1127
-- **Location:** Midland, TX, Working Worldwide
-
 ## Development
 
 Built with React + Vite for a fast, modern web experience.
