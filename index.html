@@ -20,8 +20,15 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#000000" />
     
+    <!-- Preload hero image for immediate loading -->
+    <link rel="preload" as="image" href="/src/assets/hero.png" fetchpriority="high" />
+    
+    <!-- DNS Prefetch and Preconnect for faster font loading -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Load fonts with display=swap to prevent render blocking -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>Webb Labs | Legacy Built. Future Ready.</title>
   </head>

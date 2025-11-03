@@ -7,17 +7,39 @@ function App() {
   const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
-    // Preload hero image with high priority
+    // Preload hero image immediately with highest priority
+    // This runs as soon as the component mounts, before first render
     const img = new Image()
-    // Set loading and decoding hints for better performance
-    img.loading = 'eager'
-    img.decoding = 'async'
-    img.src = heroImage
-    img.onload = () => setImageLoaded(true)
     
-    // If image is already cached, set loaded immediately
-    if (img.complete) {
+    // Critical performance hints for above-fold image
+    img.loading = 'eager' // Don't lazy load
+    img.decoding = 'sync' // Decode synchronously for critical image
+    img.fetchPriority = 'high' // High fetch priority
+    
+    // Start loading immediately
+    img.src = heroImage
+    
+    // Handle different load states
+    if (img.complete || img.naturalWidth > 0) {
+      // Image already loaded/cached - show immediately
       setImageLoaded(true)
+    } else {
+      // Timeout fallback - show image after 100ms even if not fully loaded
+      // This prevents blank screen on slow connections
+      let timeout = setTimeout(() => {
+        setImageLoaded(true)
+      }, 100)
+      
+      // Wait for load
+      img.onload = () => {
+        clearTimeout(timeout)
+        setImageLoaded(true)
+      }
+      img.onerror = () => {
+        clearTimeout(timeout)
+        // Fallback: show anyway to prevent blank screen
+        setImageLoaded(true)
+      }
     }
   }, [])
 

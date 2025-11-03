@@ -23,7 +23,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: #000000; /* Fallback */
+  background-color: #000000; /* Fallback - shows while image loads */
   will-change: background-image;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
@@ -31,6 +31,8 @@
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
+  /* Ensure image is prioritized by browser */
+  content-visibility: auto;
 }
 
 .hero.image-loaded {
@@ -56,7 +58,7 @@
   text-align: center;
   width: 100%;
   position: relative;
-  z-index: 2;
+  z-index: 3; /* Above weather effect */
 }
 
 .hero-title {
