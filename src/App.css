@@ -20,24 +20,41 @@
 .hero {
   min-height: 100vh;
   position: relative;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #000000; /* Fallback - shows while image loads */
-  will-change: background-image;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  background-color: #000000; /* Fallback - shows while video loads */
+  overflow: hidden;
   /* Optimize rendering performance */
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
-  /* Ensure image is prioritized by browser */
-  content-visibility: auto;
 }
 
-.hero.image-loaded {
-  transition: opacity 0.3s ease-in;
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+  /* Preserve original video quality - no compression */
+  image-rendering: auto;
+  image-rendering: high-quality;
+  image-rendering: -webkit-optimize-contrast;
+  /* Hardware acceleration without quality loss */
+  transform: translate(-50%, -50%) translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  /* Prevent browser from compressing video */
+  -webkit-transform: translate(-50%, -50%) translateZ(0);
+  -moz-transform: translate(-50%, -50%) translateZ(0);
+  -ms-transform: translate(-50%, -50%) translateZ(0);
 }
+
+/* Remove empty ruleset - no additional styles needed for video-loaded state */
 
 .hero-overlay {
   position: absolute;
