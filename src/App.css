@@ -36,22 +36,24 @@
   min-height: 100%;
   width: auto;
   height: auto;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translateZ(0);
   z-index: 0;
   object-fit: cover;
-  transition: opacity 0.5s ease-in-out;
-  /* Preserve original video quality - no compression */
-  image-rendering: auto;
-  image-rendering: high-quality;
-  image-rendering: -webkit-optimize-contrast;
-  /* Hardware acceleration without quality loss */
-  transform: translate(-50%, -50%) translateZ(0);
-  will-change: transform;
+  transition: opacity 0.2s ease-in-out; /* Faster transition for perceived speed */
+  /* Hardware acceleration for smooth playback */
+  will-change: transform, opacity;
   backface-visibility: hidden;
-  /* Prevent browser from compressing video */
+  /* Optimize video rendering performance */
   -webkit-transform: translate(-50%, -50%) translateZ(0);
   -moz-transform: translate(-50%, -50%) translateZ(0);
   -ms-transform: translate(-50%, -50%) translateZ(0);
+  /* Ensure video is prioritized for loading */
+  content-visibility: auto;
+  /* Optimize video decoding and rendering */
+  image-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  /* Force GPU acceleration */
+  transform-style: preserve-3d;
 }
 
 /* Remove empty ruleset - no additional styles needed for video-loaded state */

@@ -7,12 +7,37 @@ function App() {
   const heroRef = useRef(null)
   const videoRef = useRef(null)
   const [videoLoaded, setVideoLoaded] = useState(false)
-  const [playDirection, setPlayDirection] = useState(1) // 1 = forward, -1 = backward
 
   useEffect(() => {
-    // Handle video loading
+    // Preload video immediately with highest priority - start before component renders
     const video = videoRef.current
     if (!video) return
+    
+    // CRITICAL: Set buffer strategy for fastest initial load
+    // Prefer fast start over complete buffering
+    video.preload = 'auto' // Already set in JSX, but ensure it's set
+    video.loop = false // Explicitly disable looping
+    video.load() // Force immediate load start
+    
+    // Track if video has ended to prevent restarting
+    let hasEnded = false
+
+    // Optimize buffering - start playing as soon as we have enough data
+    // This allows video to start before fully loaded
+    const handleCanPlay = () => {
+      // Video has enough data to start playing
+      if (!videoLoaded && !hasEnded) {
+        setVideoLoaded(true)
+        video.playbackRate = 0.75
+        // Try to play immediately if we have enough buffer
+        const playPromise = video.play()
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Auto-play blocked, but video is ready
+          })
+        }
+      }
+    }
 
     const handleVideoLoad = () => {
       setVideoLoaded(true)
@@ -25,157 +50,62 @@ function App() {
       setVideoLoaded(true) // Show anyway to prevent blank screen
     }
 
-    // Create infinite seamless playback by reversing direction at end points
+    // Handler: when video ends, reset to beginning frame and pause (show first frame as static background)
     const handleVideoEnd = () => {
-      console.log('Video ended, current direction:', playDirection)
-      // When video reaches the end, reverse direction for seamless infinite effect
-      setPlayDirection(prev => prev * -1)
-      
-      if (playDirection === 1) {
-        // Was playing forward, now play backward
-        console.log('Switching to backward playback')
-        video.currentTime = video.duration - 0.2 // Start near end with more buffer
-        video.playbackRate = -0.75 // Negative rate = backward
-      } else {
-        // Was playing backward, now play forward
-        console.log('Switching to forward playback')
-        video.currentTime = 0.2 // Start near beginning with more buffer
-        video.playbackRate = 0.75 // Positive rate = forward
-      }
-      
-      // Force play with promise handling
-      const playPromise = video.play()
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.error('Play failed:', error)
-          // Retry after short delay
-          setTimeout(() => video.play(), 100)
-        })
-      }
+      console.log('Video ended - resetting to beginning frame')
+      hasEnded = true
+      // Explicitly disable looping
+      video.loop = false
+      // Reset to the beginning to show the initial frame
+      video.currentTime = 0
+      // Pause the video at the first frame
+      video.pause()
+      // Remove autoplay to prevent restart
+      video.removeAttribute('autoplay')
     }
 
-    // Monitor video time to detect when we need to reverse - INFINITY LOOP
-    const handleTimeUpdate = () => {
-      if (!video.duration) return // Wait for video metadata
-      
-      if (playDirection === -1 && video.currentTime <= 0.2) {
-        // Playing backward and reached start - switch to forward
-        console.log('Reached start, switching to forward')
-        setPlayDirection(1)
+    // Set up video event listeners - prioritize early events for faster perceived load
+    // 'canplay' fires when enough data is loaded to start playing (faster than canplaythrough)
+    const handleProgress = () => {
+      // Video is actively downloading - show it as soon as we have some data
+      if (video.buffered.length > 0 && video.buffered.end(0) > 0.5 && !videoLoaded) {
+        setVideoLoaded(true)
         video.playbackRate = 0.75
-        video.currentTime = 0.2
-        // Ensure it keeps playing
-        if (video.paused) {
-          const playPromise = video.play()
-          if (playPromise !== undefined) {
-            playPromise.catch(error => console.error('Forward play failed:', error))
-          }
-        }
-      } else if (playDirection === 1 && video.currentTime >= video.duration - 0.2) {
-        // Playing forward and reached end - switch to backward
-        console.log('Reached end, switching to backward')
-        setPlayDirection(-1)
-        video.playbackRate = -0.75
-        video.currentTime = video.duration - 0.2
-        // Ensure it keeps playing
-        if (video.paused) {
-          const playPromise = video.play()
-          if (playPromise !== undefined) {
-            playPromise.catch(error => console.error('Backward play failed:', error))
-          }
-        }
-      }
-      
-      // Safety net: if video somehow stops, restart it aggressively
-      if (video.paused && videoLoaded) {
-        console.log('Video paused unexpectedly, restarting...', {
-          currentTime: video.currentTime,
-          duration: video.duration,
-          playDirection: playDirection,
-          playbackRate: video.playbackRate
-        })
-        const playPromise = video.play()
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {
-            console.error('Emergency restart failed:', error)
-            // Last resort: reset video completely
-            setTimeout(() => {
-              video.currentTime = playDirection === 1 ? 0.2 : video.duration - 0.2
-              video.playbackRate = playDirection === 1 ? 0.75 : -0.75
-              video.play()
-            }, 200)
-          })
-        }
       }
     }
-
-    // Set up video event listeners
+    
+    video.addEventListener('canplay', handleCanPlay)
     video.addEventListener('loadeddata', handleVideoLoad)
     video.addEventListener('canplaythrough', handleVideoLoad)
+    video.addEventListener('progress', handleProgress)
     video.addEventListener('error', handleVideoError)
     video.addEventListener('ended', handleVideoEnd)
-    video.addEventListener('timeupdate', handleTimeUpdate)
 
-    // Timeout fallback - show video after 500ms even if not fully loaded
+    // Aggressive timeout fallback - show video after 100ms for instant perceived load
+    // This prevents blank screen even on slow connections
     const timeout = setTimeout(() => {
-      setVideoLoaded(true)
-      if (video) video.playbackRate = 0.75
-    }, 500)
-
-    // Infinity guardian: Check every 2 seconds to ensure video is still playing
-    const infinityGuardian = setInterval(() => {
-      if (video && videoLoaded && video.duration) {
-        const currentState = {
-          paused: video.paused,
-          currentTime: video.currentTime,
-          playbackRate: video.playbackRate,
-          direction: playDirection,
-          ended: video.ended
-        }
-        
-        // Log state for debugging
-        console.log('Infinity Guardian check:', currentState)
-        
-        if (video.paused) {
-          console.log('Infinity Guardian: Restarting paused video')
-          const playPromise = video.play()
-          if (playPromise !== undefined) {
-            playPromise.catch(error => {
-              console.error('Guardian restart failed:', error)
-              // Force reset
-              video.currentTime = playDirection === 1 ? 0.2 : video.duration - 0.2
-              video.playbackRate = playDirection === 1 ? 0.75 : -0.75
-              setTimeout(() => video.play(), 100)
-            })
+      if (!videoLoaded && !hasEnded) {
+        setVideoLoaded(true)
+        if (video) {
+          video.playbackRate = 0.75
+          // Try to play if we have any buffer
+          if (video.buffered.length > 0) {
+            video.play().catch(() => {})
           }
         }
-        
-        // Check if playback rate is somehow reset
-        if (Math.abs(video.playbackRate) !== 0.75) {
-          console.log('Infinity Guardian: Fixing playback rate')
-          video.playbackRate = playDirection === 1 ? 0.75 : -0.75
-        }
-        
-        // Check if video is stuck at the same time
-        if (video.currentTime === video.lastCheckedTime && !video.paused) {
-          console.log('Infinity Guardian: Video appears stuck, resetting')
-          video.currentTime = playDirection === 1 ? 0.2 : video.duration - 0.2
-          video.play()
-        }
-        video.lastCheckedTime = video.currentTime
       }
-    }, 2000)
+    }, 100)
 
     return () => {
+      video.removeEventListener('canplay', handleCanPlay)
       video.removeEventListener('loadeddata', handleVideoLoad)
       video.removeEventListener('canplaythrough', handleVideoLoad)
+      video.removeEventListener('progress', handleProgress)
       video.removeEventListener('error', handleVideoError)
       video.removeEventListener('ended', handleVideoEnd)
-      video.removeEventListener('timeupdate', handleTimeUpdate)
       clearTimeout(timeout)
-      clearInterval(infinityGuardian)
     }
-  }, [playDirection])
+  }, [])
 
   const scrollToNext = (e) => {
     e.preventDefault()
@@ -200,9 +130,12 @@ function App() {
           autoPlay
           muted
           playsInline
-          preload="metadata"
+          loop={false}
+          preload="auto"
+          fetchPriority="high"
           webkit-playsinline="true"
           x5-playsinline="true"
+          playsinline="true"
           style={{ opacity: videoLoaded ? 1 : 0 }}
         >
           <source src={heroVideo} type="video/mp4" />
@@ -301,8 +234,8 @@ function App() {
                 <a href="tel:+14322501127" className="contact-link">
                   +1 432 250 1127
                 </a>
-              </p>
-            </div>
+        </p>
+      </div>
           </div>
         </div>
       </section>
